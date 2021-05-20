@@ -1,13 +1,6 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-const express = require("express");
-const morgan = require("morgan");
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-//Import cors library
-const cors = require("cors");
-
-//Enable all cors request
-app.use(cors());
 //Import Components
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
@@ -15,12 +8,12 @@ import UserSignIn from "./Components/UserSignIn";
 import UserSignUp from ".components/UserSignUp";
 import CreateCourse from ".components/CreateCourse";
 import UpdateCourse from ".components/UpdateCourse";
-import Header from ".components/Header";
+/*import Header from ".components/Header";*/
 import UserSignOut from ".components/UserSignOut";
 import PrivateRoute from "./PrivateRoute";
-import Authenicated from "components/Authenicated";
+/*import Authenicated from "components/Authenicated";*/
 
-//Context
+/*//Context
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
 const UserSignInWithContext = withContext(UserSignIn);
@@ -31,29 +24,22 @@ const HeaderWithContext = withContext(Header);
 const UserSignOutWithContext = withContext(UserSignOut);
 const PrivateRouteWithContext = withContext(PrivateRoute);
 const AuthenicatedWithContext = withContext(Authenicated);
+*/
 
-class App extends Component {
-  render() {
-    retuen (
+const App = () => {
+  return (
     <Router>
-      <div>
-        <HeaderwithContext />
-        <Switch>
-          <Route exact path="/" component={CoursesWithContext} />
-          <PrivateRoute
-            path="/authenitcated"
-            component={AuthenicatedWithContext}
-          />
-          <Route path="/courses/create" component={CreateCoursesWithContext} />
-          <Route path="/courses/:id/update" component={CoursesWithContext} />
-          <Route path="courses/:id" component={CourseDetailsWithContext} />
-          <Route path="courses/signin" component={UserSignInsWithContext} />
-          <Route path="courses/signup" component={UserSignUpWithContext} />
-          <Route path="courses/signout" component={UserSignOutWithContext} />
-        </Switch>
-      </div>
+      <Route exact path="/" component={Courses} />
+      <Route exact path="/courses/:id" component={CourseDetail} />
+      <Route exact path="/signin" component={UserSignIn} />
+      <Route exact path="/signup" component={UserSignUp} />
+      <Route exact path="/signout" component={UserSignOut} />
+      <PrivateRoute>
+        <Route exact path="/courses/create" component={CreateCourse} />
+        <Route exact path="/courses/:id/update" component={UpdateCourse} />
+      </PrivateRoute>
     </Router>
   );
-    };
-  }
+};
+
 export default App;
